@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1 class="title">Category</h1>
+    
+    <div class="container">
+        <div class="form-container">
+            <h2>Nhập thông tin category</h2>
+            <form id="formCategory">
+                <label>Name</label>
+                <input type="text" name="name" required>
+                <label>Description</label>
+                <input type="text" name="description">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h2>Nhập thông tin product</h2>
+            <form id="formProduct">
+                <label>Product Id Category</label>
+                <select id="category" name="category" required>
+                    <option value="">Chọn danh mục</option>
+                </select>
+
+                <label>Name</label>
+                <input type="text" name="name" required>
+
+                <label>Product Price</label>
+                <input type="number" name="price" required>
+
+                <label>Product Old Price</label>
+                <input type="number" name="oldPrice">
+
+                <label>Product Description</label>
+                <input type="text" name="description">
+
+                <label>Product Image</label>
+                <input type="text" name="image" placeholder="Nhập URL hình ảnh">
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="product-list-container">
+        <h2>Sản phẩm</h2>
+        <div id="productList"></div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
