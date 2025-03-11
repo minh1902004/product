@@ -1,65 +1,71 @@
 const listCategories = [];
 const listProducts = [];
 
-$(document).ready(function () {
-    $("#formCategory").submit(function (e) {
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("formCategory").addEventListener("submit", function (e) {
         e.preventDefault();
         const data = {
             id: Math.floor(Math.random() * 100).toString(),
-            name: $("input[name='name']").val(),
-            description: $("input[name='description']").val()
+            name: document.querySelector("input[name='name']").value,
+            description: document.querySelector("input[name='description']").value
         };
 
         listCategories.push(data);
         updateCategoryDropdown();
-        $("input[name='name']").val('');
-        $("input[name='description']").val('');
+        document.querySelector("input[name='name']").value = '';
+        document.querySelector("input[name='description']").value = '';
     });
 
-    $("#formProduct").submit(function (e) {
+    document.getElementById("formProduct").addEventListener("submit", function (e) {
         e.preventDefault();
         const data = {
             id: Math.floor(Math.random() * 100).toString(),
-            category: $("#category").val(),
-            name: $("input[name='name']").val(),
-            price: $("input[name='price']").val(),
-            oldPrice: $("input[name='oldPrice']").val(),
-            description: $("input[name='description']").val(),
-            image: $("input[name='image']").val()
+            category: document.getElementById("category").value,
+            name: document.querySelector("input[name='name']").value,
+            price: document.querySelector("input[name='price']").value,
+            oldPrice: document.querySelector("input[name='oldPrice']").value,
+            description: document.querySelector("input[name='description']").value,
+            image: document.querySelector("input[name='image']").value
         };
 
         listProducts.push(data);
         renderProductList();
-        $("input[name='name']").val('');
-        $("input[name='price']").val('');
-        $("input[name='oldPrice']").val('');
-        $("input[name='description']").val('');
-        $("input[name='image']").val('');
+        document.querySelector("input[name='name']").value = '';
+        document.querySelector("input[name='price']").value = '';
+        document.querySelector("input[name='oldPrice']").value = '';
+        document.querySelector("input[name='description']").value = '';
+        document.querySelector("input[name='image']").value = '';
     });
 
     function updateCategoryDropdown() {
-        $("#category").html('<option value="">Chọn danh mục</option>');
+        const categorySelect = document.getElementById("category");
+        categorySelect.innerHTML = '<option value="">Chọn danh mục</option>';
         listCategories.forEach((item) => {
-            $("#category").append(`<option value="${item.id}">${item.name}</option>`);
+            const option = document.createElement("option");
+            option.value = item.id;
+            option.textContent = item.name;
+            categorySelect.appendChild(option);
         });
     }
 
     function renderProductList() {
-        $("#productList").html('');
+        const productList = document.getElementById("productList");
+        productList.innerHTML = '';
         listProducts.forEach((product) => {
             const categoryName = listCategories.find(cat => cat.id === product.category)?.name || 'Không xác định';
-            $("#productList").append(`
-                <div class="product-item">
-                    <img src="${product.image}" alt="${product.name}">
-                    <div class="product-info">
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-old-price">${product.oldPrice ? product.oldPrice + 'đ' : ''}</div>
-                        <div class="product-price">${product.price}đ</div>
-                        <div class="product-description">${product.description}</div>
-                        <div><strong>Danh mục:</strong> ${categoryName}</div>
-                    </div>
+            const productItem = document.createElement("div");
+            productItem.classList.add("product-item");
+            productItem.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <div class="product-info">
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-old-price">${product.oldPrice ? product.oldPrice + 'đ' : ''}</div>
+                    <div class="product-price">${product.price}đ</div>
+                    <div class="product-description">${product.description}</div>
+                    <div><strong>Danh mục:</strong> ${categoryName}</div>
                 </div>
-            `);
+            `;
+            productList.appendChild(productItem);
         });
     }
 });
